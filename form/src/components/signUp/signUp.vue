@@ -4,10 +4,13 @@
         <label class="form__label">{{ field.text }}</label>
         <input v-if="!field.options" class="form__input" type="text" v-model="field.value" />
         <!-- Replace select element with MultiselectCheckbox component -->
-        <MultiselectCheckbox v-else-if="Array.isArray(field.options)" class="form__input" v-model="field.value" :options="field.options" :multiple="field.multiple" />
+        <MultiselectCheckbox v-else-if="field.multiple == true" class="form__input" v-model="field.selectedOption" :options="field.options" />
+        <select v-else class="form__input form__int" type="text" v-model="field.selectedOption">
+          <option v-for="option in field.options" :key="option" :value="option">{{ option }}</option>
+        </select>
         <p class="error" v-if="!field.value && submitted">{{ field.error }}</p>
       </div>
-      <button @click="submit" :disabled="!isValid">Submit</button>
+      <button class="form__btn" @click="submit" :disabled="!isValid">Submit</button>
     </div>
   </template>
 
@@ -16,6 +19,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { ref } from 'vue';
 import MultiselectCheckbox from '../select.vue/select'
+
 
 export default {
     components: { MultiselectCheckbox },
@@ -30,6 +34,8 @@ export default {
             { text: 'Пол' },
             {
                 text: 'Группа клиентов',
+                options: [],
+                // options: ['VIP', 'Проблемные', 'ОМС'],
                 multiple: true
             },
             {
@@ -43,7 +49,7 @@ export default {
             { text: 'Улица' },
             { text: 'Дом' },
             {
-                text: "Тип документа",
+                text: 'Тип документа',
                 options: ['Паспорт', 'Свидетельство о рождении', 'Вод. удостоверение']
             },
             { text: 'Серия' },
