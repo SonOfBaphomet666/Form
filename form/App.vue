@@ -10,7 +10,8 @@ import signUp from '@/components/signUp/signUp.vue';
 export default {
   name: 'App',
   components: {
-    signUp
+    signUp,
+   
   }
 }
 </script>

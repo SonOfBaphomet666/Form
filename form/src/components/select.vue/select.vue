@@ -9,7 +9,6 @@
           </li>
         </div>
       </div>
-      <!-- <p>Selected Options: {{ selectedOptions }}</p> -->
     </div>
   </template>
 
@@ -22,18 +21,6 @@ export default {
             selectedOptions: [],
         };
     },
-    // methods: {
-    //     toggleAll() {
-    //         if (this.areAllOptionsSelected()) {
-    //             this.selectedOptions = [];
-    //         } else {
-    //             this.selectedOptions = [...this.options];
-    //         }
-    //     },
-    //     areAllOptionsSelected() {
-    //         return this.options.length > 0 && this.options.every((option) => this.selectedOptions.includes(option));
-    //     },
-    // },
 };
 </script>
 

@@ -1,39 +1,61 @@
 <template>
-  <input type="tel" v-model="boundValue" @blur="validatePhoneNumber" required />
+  <div>
+    <input type="text" v-model.trim="phoneNumber" @blur="validatePhoneNumber">
+    <p class="error" v-if="showError">The phone number must be exactly 11 digits long and start with '7'.</p>
+    <button class="form__btn" @click="submit" :disabled="!isValid">Submit</button>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "inputPhone",
-  props: {
-    value: String,
+  data() {
+    return {
+      phoneNumber: '',
+      showError: false
+    }
   },
   computed: {
-    boundValue: {
-      get() {
-        return this.value || '';
-      },
-      set(newValue) {
-        this.$emit('input', newValue);
-      },
-    },
+    isValid() {
+      return this.phoneNumber.length === 11 && /^7\d{10}$/.test(this.phoneNumber);
+    }
   },
   methods: {
     validatePhoneNumber() {
-      if (!this.boundValue || !/^[7]\d{10}$/.test(this.boundValue)) {
-        this.boundValue = '';
-        this.$emit('input', '');
-        this.$emit('update:modelValue', '');
-      }
+      this.showError = !this.isValid;
     },
-  },
-};
+    submit() {
+      // Handle form submission here
+    }
+  }
+}
 </script>
 
 <style scoped>
-input[type='tel'] {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+.form__btn {
+  background-color: blue;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form__btn:hover {
+  background-color: darkblue;
+}
+
+.form__btn:focus {
+  outline: none;
+}
+
+.form__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 </style>
