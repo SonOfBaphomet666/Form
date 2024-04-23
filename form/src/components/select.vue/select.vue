@@ -17,7 +17,7 @@ export default {
     name: "MultiSelector",
     data() {
         return {
-            options: ['VIP', 'Проблемные', 'ОМС'],
+            options: ['VIP', 'Проблемные', 'ОМС' ],
             selectedOptions: [],
         };
     },
@@ -28,6 +28,11 @@ export default {
 .multi-selector {
     border: 1px solid #fc0000;
     padding: 15px;
+}
+
+.dropdown {
+  width: 0%;
+
 }
 
 ul {

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <input type="text" v-model.trim="phoneNumber" @blur="validatePhoneNumber">
+   <input class="form__input" v-model.trim="phoneNumber" @blur="validatePhoneNumber">
     <p class="error" v-if="showError">The phone number must be exactly 11 digits long and start with '7'.</p>
-    <button class="form__btn" @click="submit" :disabled="!isValid">Submit</button>
+    <!-- <button class="form__btn" @click="submit" :disabled="!isValid">Submit</button> -->
   </div>
 </template>
 
@@ -22,9 +22,6 @@ export default {
   methods: {
     validatePhoneNumber() {
       this.showError = !this.isValid;
-    },
-    submit() {
-      // Handle form submission here
     }
   }
 }
