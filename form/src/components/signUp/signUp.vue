@@ -1,23 +1,22 @@
 <template>
-        <div>
-            <div v-for="(field, index) in fields" :key="index">
-                <label class="form__label">{{ field.text }}</label>
-                <inputPhone v-if="field.type === 'phoneNumber'" />
-                <MultiselectCheckbox v-if="field.type === 'multiSelect'" class="form__input"
-                    v-model="field.selectedOptions" :options="field.options" />
-                <select v-if="field.type === 'select'" class="form__input form__select form__int">
-                    <option v-for="option in field.options" :key="option" :value="option">{{ option }}</option>
-                </select>
-                <input v-if="field.type === 'checkbox'" type="checkbox" class="form__checkbox" />
-                <input v-if="field.type === 'input'" class="form__input" type="text" v-model="field.value" />
-                <p class="error" v-if="!field.value && submitted">{{ field.error }}
-                </p>
-            </div>
-            <modal>
-            <childComponent :submitted="submitted" :isValid="isValid" />
-            <button class="form__btn" @click="submit" :disabled="!isValid">Зарегистрироваться</button>
-        </modal>
+    <div>
+        <div v-for="(field, index) in fields" :key="index">
+            <label class="form__label">{{ field.text }}</label>
+            <inputPhone v-if="field.type === 'phoneNumber'" />
+            <MultiselectCheckbox v-if="field.type === 'multiSelect'" class="form__input" v-model="field.selectedOptions"
+                :options="field.options" />
+            <select v-if="field.type === 'select'" class="form__input form__select form__int">
+                <option v-for="option in field.options" :key="option" :value="option">{{ option }}</option>
+            </select>
+            <input v-if="field.type === 'checkbox'" type="checkbox" class="form__checkbox" />
+            <input v-if="field.type === 'input'" class="form__input" type="text" v-model="field.value" />
+            <p class="error" v-if="!field.value && submitted">{{ field.error }}
+            </p>
         </div>
+        <modalWindow @click="submit" :disabled="!isValid">
+            <button class="form__btn" @click="submit" :disabled="!isValid">Зарегистрироваться</button>
+        </modalWindow>
+    </div>
 </template>
 
 
@@ -28,10 +27,11 @@ import { required } from '@vuelidate/validators';
 import { ref } from 'vue';
 import MultiselectCheckbox from '../select.vue/select';
 import inputPhone from '../number/numberVal'
-import modal from '../window/windowBtn'
+import modalWindow from '../window/windowBtn'
+
 
 export default {
-    components: { MultiselectCheckbox, inputPhone, modal },
+    components: { MultiselectCheckbox, inputPhone, modalWindow },
 
 
     setup() {

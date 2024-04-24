@@ -1,6 +1,7 @@
 <template id="modal-template">
-  <transition name="modal">
-    <div class="modal-mask">
+  <div>
+  <transition-group name="modal">
+    <div v-if="isModalVisible" class="modal-mask" key="modal">
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-header">
@@ -8,29 +9,37 @@
               Вы успешно зарегистрированы!
             </slot>
           </div>
-          <button class="modal-default-button" @click="$emit('close')">
+          <button class="modal-default-button" @click="closeModal">
             OK
           </button>
-
         </div>
       </div>
     </div>
-  </transition>
+  </transition-group>
+  <button id="show-modal" @click="showModal">Зарегистрироваться</button>
+</div>
 </template>
 
 <script>
 export default {
-  template: '#modal-template',
-  props: ['show'],
+  name: 'modalWindow',
+  data() {
+    return {
+      isModalVisible: false
+    };
+  },
   methods: {
-    close() {
-      this.$emit('update:show', false)
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
     }
-  }
-}
+  },
+};
 </script>
 
-<style scoped>
+<style>
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -38,9 +47,9 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .modal-wrapper {
@@ -50,19 +59,19 @@ export default {
 
 .modal-container {
   width: 300px;
-  height: 100px;
+  height: 40px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
   text-align: center;
 }
 
 .modal-header h3 {
-  /* bottom: 100px; */
+  margin-top: 0;
   color: #42b983;
 }
 
@@ -71,12 +80,18 @@ export default {
 }
 
 .modal-default-button {
-  float: right;
+  margin-top: 10px;
+  float: center;
 }
 
 /*
-   * The following styles are experimentaal.
-   */
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
 
 .modal-enter {
   opacity: 0;
