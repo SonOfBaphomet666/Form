@@ -16,7 +16,7 @@
       </div>
     </div>
   </transition-group>
-  <button id="show-modal" @click="showModal">Зарегистрироваться</button>
+  <!-- <button id="show-modal" @click="showModal">Зарегистрироваться</button> -->
 </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
   name: 'modalWindow',
   data() {
     return {
-      isModalVisible: false
+      isModalVisible: true
     };
   },
   methods: {

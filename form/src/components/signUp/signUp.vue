@@ -13,9 +13,9 @@
             <p class="error" v-if="!field.value && submitted">{{ field.error }}
             </p>
         </div>
-        <modalWindow @click="submit" :disabled="!isValid">
-            <button class="form__btn" @click="submit" :disabled="!isValid">Зарегистрироваться</button>
-        </modalWindow>
+        <button class="form__btn" @click="submit" :disabled="!isValid">Зарегистрироваться
+        </button>
+        <modalWindow v-if="submitted && isValid" />
     </div>
 </template>
 
@@ -60,7 +60,7 @@ export default {
             { type: 'input', text: 'Улица' },
             { type: 'input', text: 'Дом' },
             {
-                type: 'input',
+                type: 'select',
                 text: 'Тип документа',
                 options: ['Паспорт', 'Свидетельство о рождении', 'Вод. удостоверение']
             },
